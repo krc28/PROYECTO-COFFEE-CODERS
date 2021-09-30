@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Administrador de Ventas</title>
+    <link rel="stylesheet" href="estiloPaginaAdmonVentas.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form action="paginaAdmonVentas.html" class="formulario">  
+    <main class="contenedor">
+        <div class="contenedor-textos">
+            <h1 class= "titulo">¡Este es tu módulo de Administrador de Ventas!</h1>
+            <h2 class= "subtitulo">Ingrese o registre los pedidos realizados por cada uno de los clientes</h2>
+        </div>
+        <div class="contenedor-formulario">
+            <h1 class="ID">Identificador único de venta</h1>
+            <input type="number" class="sub" placeholder="Ingrese el identificador (id) único de la venta">            
+            <h1 class="valortotal">Valor total</h1>
+            <input type="number" min="1" step="any" class="sub1" placeholder="Ingrese el valor total de la venta">            
+            <h1 class="descripcion">Descripción de la venta</h1>
+            <textarea name="Descripción" rows="10" cols="30" class="sub2" maxlength="300" placeholder="Ingrese la descripción detallada de la venta (máximo 300 palabras)"></textarea>        
+            <h1 class="fechainicial">Fecha inicial de pago</h1>
+            <input type="date" class="sub3" placeholder="Ingrese la fecha inicial de pago">            
+            <h1 class="fechafutura">Fecha futura de pago</h1>
+            <input type="date" class="sub4" placeholder="Escribe la fecha futura de pago"> 
+            <h1 class="encargado">Vendedor encargado de la venta</h1>
+            <input type="text" class="sub5" placeholder="Escriba el nombre del vendedor que hizo la venta"> 
+            <button type="submit" class="botonnuevaventa">Ingresar nueva venta</button>
+        </div>
+        <div class="contenedor-imagen">
+            <img src="ilustraciones/imagen.svg" alt="" class="img">
+        </div>
+        <img src="ilustraciones/vector.svg" alt="" class="vector">
+
+    </main>
+    </form>
+</body>
+</html>
