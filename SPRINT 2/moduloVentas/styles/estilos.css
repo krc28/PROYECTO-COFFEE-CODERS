@@ -1,0 +1,45 @@
+ul {
+    list-style: none;
+}    
+
+.contenedor {
+    background-color: #eff2f3;
+}
+
+.descripcion {
+    color:#515151;
+}
+
+.titulo {
+    margin: 20px;
+    padding: 10px;
+    font-size: x-large;
+    font-style: bold;
+    font-family: Dsignes;
+    background-color: #ffffff;
+    color:#3e4144;
+}   
+
+.tabla {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-around;
+    grid-template-columns: 8;
+    font-size: medium;
+    font-family: Open Sans;
+    background-color: #ffffff;
+    color:#3e4144;
+}   
+
+
+.mainButton {
+    background-color: #217a79;
+    color: white;
+    padding: 1px 15px 1px 15px;
+    cursor: pointer;
+    border: 0px;
+    font-weight: 500;
+    font-family: Open Sans;
+} 
