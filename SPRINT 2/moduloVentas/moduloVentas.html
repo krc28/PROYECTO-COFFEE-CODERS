@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histórico de ventas</title>
-    <link rel="stylesheet" href="estiloPaginaAdmonVentas.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header></header>
-    <main class="contenedor">
-        <section class="contenedor-descripcion">
-            <h1 class= "titulo">Histórico de ventas</h1>
-            <span class= "descripción">Consulta y actualiza los datos de tus ventas.</span>
-        <section class="contenedor-buscador">Buscador</section>
-        <section class="contenedor-registros">Registros de ventas</section>
-
-    </main>
-</body>
+    <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="./styles/estilos.css" rel="stylesheet" />
+     <title>Histórico de ventas</title>
+    </head>
+    <body class="contenedor">
+        <header>Módulo de ventas</header>
+        <main class="contenedor">
+            <section class="contenedor descripcion">
+            <h1 class="titulo">Histórico de ventas</h1>
+            <span class= "descripcion">Consulta y actualiza los datos de tus ventas.</span>
+            <section class="contenedor-buscador">Buscador
+                <form>
+                 <label for="numero venta">
+                    Ingrese el ID de la venta
+                    <input name="numero venta" placeholder="Ejemplo: 18293084" type="number"/>
+                 </label>
+                 <button class="mainButton" type="submit">Buscar</button>
+                </form>
+            </section>
+            <section class="contenedor-registros">Registros de ventas
+                <ul class="tabla">
+                    <li class="columna">Identificador</li>
+                    <li class="columna">Decripción</li>
+                    <li class="columna">Valor</li>
+                    <li class="columna">Fecha inicial de pago</li>
+                    <li class="columna">Fecha final de pago</li>
+                    <li class="columna">Responsable</li>
+                    <li class="columna">Estado</li>
+                    <li class="columna">Botón</li>
+                </ul>
+            </section>
+        </main>
+        <footer></footer>
+    </body>
 </html>
