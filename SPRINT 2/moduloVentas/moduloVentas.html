@@ -8,31 +8,80 @@
      <title>Histórico de ventas</title>
     </head>
     <body class="contenedor">
-        <header>Módulo de ventas</header>
+        <header class="barraNav">Módulo de ventas</header>
         <main class="contenedor">
-            <section class="contenedor descripcion">
-            <h1 class="titulo">Histórico de ventas</h1>
-            <span class= "descripcion">Consulta y actualiza los datos de tus ventas.</span>
-            <section class="contenedor-buscador">Buscador
+            <section>
+                <h1 class="modulo">Histórico de ventas</h1>
+            </section>
+            <section class="modulo segundoMod">
                 <form>
-                 <label for="numero venta">
+                 <label for="idVenta">
                     Ingrese el ID de la venta
-                    <input name="numero venta" placeholder="Ejemplo: 18293084" type="number"/>
+                    <input name="idVenta" placeholder="p.ej.: 18293" type="number"/>
+                 </label>
+                 <label for="idCliente">
+                    Ingrese el ID del cliente
+                    <input name="idCliente" placeholder="p.ej.: 39764021" type="number"/>
+                 </label>
+                 <label for="nombreCliente">
+                    Ingrese el nombre del cliente
+                    <input name="nombreCliente" placeholder="p.ej.: Juan Pérez" type="text"/>
                  </label>
                  <button class="mainButton" type="submit">Buscar</button>
                 </form>
             </section>
-            <section class="contenedor-registros">Registros de ventas
-                <ul class="tabla">
-                    <li class="columna">Identificador</li>
-                    <li class="columna">Decripción</li>
-                    <li class="columna">Valor</li>
-                    <li class="columna">Fecha inicial de pago</li>
-                    <li class="columna">Fecha final de pago</li>
-                    <li class="columna">Responsable</li>
-                    <li class="columna">Estado</li>
-                    <li class="columna">Botón</li>
-                </ul>
+            <section class="modulo moduloTabla">
+                <table>
+                    <thead class=>
+                        <tr>
+                            <th>ID venta</th>
+                            <th>Descripción</th>
+                            <th>Valor</th>
+                            <th>ID Cliente</th>
+                            <th>Cliente</th>
+                            <th>Estado</th>
+                            <th>Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>13783</td>
+                            <td>Descripción</td>
+                            <td>320.000</td>
+                            <td>39756394</td>
+                            <td>Sandra Ramírez</td>
+                            <td>Creación</td>
+                            <td>Detalles</td>                            
+                        </tr>
+                        <tr>
+                            <td>13783</td>
+                            <td>Descripción</td>
+                            <td>520.000</td>
+                            <td>46786253</td>
+                            <td>Luis Carlos Restrepo</td>
+                            <td>Ruta</td>
+                            <td>Detalles</td>
+                        </tr>
+                        <tr>
+                            <td>13783</td>
+                            <td>Descripción</td>
+                            <td>60.000</td>
+                            <td>101846372</td>
+                            <td>Verónica Vargas</td>
+                            <td>Entregada</td>
+                            <td>Detalles</td>
+                        </tr>
+                        <tr>
+                            <td>13783</td>
+                            <td>Descripción</td>
+                            <td>1.029.000</td>
+                            <td>89657293</td>
+                            <td>Julieta Durán</td>
+                            <td>Entregada</td>
+                            <td>Detalles</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </main>
         <footer></footer>
