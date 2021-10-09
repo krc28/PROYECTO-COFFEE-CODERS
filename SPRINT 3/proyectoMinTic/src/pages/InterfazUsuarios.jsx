@@ -62,6 +62,7 @@ const Usuarios=()=>{
         ) : (
             <RegistroUsuarios
             setMostrarTabla={setMostrarTabla}
+	    listaUsuarios={usuarios}
             setUsuarios={setUsuarios}
             />
         )}
@@ -172,8 +173,6 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
 }
 
 const TablaUsuarios=({listaUsuarios})=>{
-    useEffect(() => {
-      }, [listaUsuarios]);
 
     return(
             <div className='flex flex-col items-center justify-center'>
