@@ -1,0 +1,35 @@
+body{
+    background-color:lightseagreen;
+}
+
+.mainContainer{
+    position: relative;
+}
+
+h1{
+    color:white;
+    font-weight:bold;
+    font-size:35px;
+    padding: 30px;
+}
+
+.btn{
+    color:teal;
+    font-weight:bold;
+    border-color:teal;
+}
+
+.table{
+    border:lightseagreen;
+}
+
+.IconoUsuarios{
+    height: 80px;
+}
+
+.circular--landscape {
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 50%;
+}
+  
