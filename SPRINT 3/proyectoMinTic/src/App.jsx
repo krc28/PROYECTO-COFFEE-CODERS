@@ -1,4 +1,5 @@
 import 'App.css';
+import PublicLayout from 'layouts/PublicLayout';
 import IndexVentas from 'pages/GestionVentas';
 import Usuarios from 'pages/InterfazUsuarios';
 import Login from 'pages/Login';
@@ -16,10 +17,16 @@ function App() {
           <Productos/>
         </Route>
         <Route path='/InterfazUsuarios'>
-          <Usuarios/>
+            <Usuarios/>
         </Route>
-        <Route path='/'>
-          <Login/>
+        <Route path={['/']}>
+          <PublicLayout>
+            <Route path='/'>
+            <Login/>
+
+            </Route>
+          </PublicLayout>
+          
         </Route>
       </Switch>
     </Router>

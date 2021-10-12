@@ -25,10 +25,9 @@ const Login = () => {
           <div>
             <label htmlFor='recuerdame'>
               <input type='checkbox' name='recuerdame'className='' />
-                Recuerdame
+                Recuérdame
             </label>
           </div>
-          
           <div>
             <Link to='/'>¿Olvidaste tu contraseña?</Link>
           </div>
@@ -40,7 +39,9 @@ const Login = () => {
             </button>
           </Link>
         </div>
-        <div className='my-2'>O</div>
+        <div className='my-2'>
+          O
+        </div>
         <div>
             <button className='bg-indigo-200 p-2 my-4 text-black rounded-lg shadow-md hover:bg-indigo-300'>
               Continua con google
