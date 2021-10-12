@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -28,17 +28,17 @@ const Login = () => {
                 Recuerdame
             </label>
           </div>
+          
           <div>
-            {/* <Link to='/'>¿Olvidaste tu contraseña?</Link> */}
+            <Link to='/'>¿Olvidaste tu contraseña?</Link>
           </div>
         </div>
         <div>
+          <Link to='/interfazusuarios'>
             <button type='submit' className='rounded-full py-3 px-6 bg-indigo-500 p-2 my-4 text-white shadow-md hover:bg-indigo-700'>
                 Iniciar Sesion
             </button>
-          {/* <Link to='/Usuarios'>
-            
-          </Link> */}
+          </Link>
         </div>
         <div className='my-2'>O</div>
         <div>
