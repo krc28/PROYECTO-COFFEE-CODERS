@@ -1,4 +1,5 @@
 import React from 'react';
+import Google from 'media/google_logo.png';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -18,6 +19,7 @@ const Login = () => {
           <input
             className='appearance-none rounded-none relative block w-full px-3 py-2 my-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 hover:border-gray-500 sm:text-sm'
             type='password'
+            placeholder='Contraseña'
             required
           />
         </div>
@@ -34,18 +36,31 @@ const Login = () => {
         </div>
         <div>
           <Link to='/interfazusuarios'>
-            <button type='submit' className='rounded-full py-3 px-6 bg-indigo-500 p-2 my-4 text-white shadow-md hover:bg-indigo-700'>
+            <button type='submit' 
+            className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            >
+            {/* className='rounded-full py-3 px-6 bg-indigo-500 p-2 my-4 text-white shadow-md hover:bg-indigo-700'> */}
                 Iniciar Sesion
             </button>
           </Link>
         </div>
-        <div className='my-2'>
-          O
+        <div className='flex items-center justify-center'>
+        <span className='mx-4'>------------------------</span>
+        <h2 className='my-4 text-center text-sm font-extrabold text-gray-900'>O</h2>
+        <span className='mx-4'>------------------------</span>
         </div>
         <div>
-            <button className='bg-indigo-200 p-2 my-4 text-black rounded-lg shadow-md hover:bg-indigo-300'>
+          <button
+            type='submit'
+            className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-indigo-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'>
+            <div className='flex items-center justify-start'>
+              <img src={Google} alt='Logo Google' className='h-6 w-6' />
+              <span className='mx-4'>Continúa con Google</span>
+            </div>
+          </button>
+            {/* <button className='bg-indigo-200 p-2 my-4 text-black rounded-lg shadow-md hover:bg-indigo-300'>
               Continua con google
-            </button>
+            </button> */}
         </div>
       </form>
     </div>
@@ -53,3 +68,4 @@ const Login = () => {
 };
 
 export default Login;
+
