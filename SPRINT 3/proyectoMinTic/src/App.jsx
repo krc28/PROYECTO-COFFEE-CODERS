@@ -1,5 +1,6 @@
 import 'App.css';
 import AuthLayout from 'layouts/AuthLayout';
+import PrivateLayout from 'layouts/PrivateLayout';
 import PublicLayout from 'layouts/PublicLayout';
 import IndexVentas from 'pages/GestionVentas';
 import Usuarios from 'pages/InterfazUsuarios';
@@ -17,9 +18,14 @@ function App() {
         <Route path='/productos'>
           <Productos/>
         </Route>
-        <Route path='/InterfazUsuarios'>
-            <Usuarios/>
+        <Route path={['/InterfazUsuarios']}>
+          <PrivateLayout>
+            <Route path='/InterfazUsuarios'>
+              <Usuarios/>
+            </Route>
+          </PrivateLayout>
         </Route>
+        
         <Route path={['/']}>
           <AuthLayout>
             <Route path='/'>
