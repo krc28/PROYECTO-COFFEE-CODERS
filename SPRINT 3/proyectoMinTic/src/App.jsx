@@ -1,4 +1,5 @@
 import 'App.css';
+import AuthLayout from 'layouts/AuthLayout';
 import PublicLayout from 'layouts/PublicLayout';
 import IndexVentas from 'pages/GestionVentas';
 import Usuarios from 'pages/InterfazUsuarios';
@@ -20,12 +21,12 @@ function App() {
             <Usuarios/>
         </Route>
         <Route path={['/']}>
-          <PublicLayout>
+          <AuthLayout>
             <Route path='/'>
             <Login/>
 
             </Route>
-          </PublicLayout>
+          </AuthLayout>
           
         </Route>
       </Switch>
