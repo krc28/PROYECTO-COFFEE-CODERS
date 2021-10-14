@@ -14,26 +14,26 @@ import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path='/productos'>
-          <Productos/>
-        </Route>
-        <Route path={['/InterfazUsuarios']}>
+      <Switch>        
+        <Route path={['/InterfazUsuarios', '/Productos', '/GestionVentas']}>
           <PrivateLayout>
             <Route path='/InterfazUsuarios'>
               <Usuarios/>
             </Route>
+            <Route path='/productos'>
+              <Productos/>
+            </Route>
+            <Route path='/GestionVentas'>
+              <IndexVentas/>
+            </Route>
           </PrivateLayout>
         </Route>
-        
         <Route path={['/']}>
           <AuthLayout>
             <Route path='/'>
-            <Login/>
-
+              <Login/>
             </Route>
           </AuthLayout>
-          
         </Route>
       </Switch>
     </Router>
