@@ -13,13 +13,13 @@ const SidebarResponsive = () => {
       <i
         className={`mx-2 fas fa-${
           mostrarNavegacion ? 'times' : 'bars'
-        } hover:text-yellow-600 cursor-pointer`}
+        } hover:text-blue-600 cursor-pointer`}
       />
       {mostrarNavegacion && (
         <ul className='bg-gray-900'>
-          <ResponsiveRoute nombre='Vehículos' ruta='/admin/vehiculos' />
-          <ResponsiveRoute nombre='Ventas' ruta='/admin/ventas' />
-          <ResponsiveRoute nombre='Usuarios' ruta='/admin/usuarios' />
+          <ResponsiveRoute nombre='Productos' ruta='/Productos' />
+          <ResponsiveRoute nombre='Ventas' ruta='/GestionVentas' />
+          <ResponsiveRoute nombre='Usuarios' ruta='/InterfazUsuarios' />
         </ul>
       )}
     </div>
