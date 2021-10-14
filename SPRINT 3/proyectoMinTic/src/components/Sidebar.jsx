@@ -11,10 +11,10 @@ const Sidebar = () => {
       </Link>
 
       <div className='my-4'>
-        <Ruta icono='fas fa-user' ruta='/pages/InterfazUsuarios' nombre='Usuarios' />
-        <Ruta icono='fas fa-car' ruta='/pages/InterfazUsuarios' nombre='Ventas' />
-        <Ruta icono='fas fa-cash-register' ruta='/pages/InterfazUsuarios' nombre='Productos' />
-        <Ruta icono='fas fa-users' ruta='/pages/InterfazUsuarios' nombre='Login' />
+        <Ruta icono='fas fa-user' ruta='/InterfazUsuarios' nombre='Usuarios' />
+        <Ruta icono='fas fa-car' ruta='/GestionVentas' nombre='Ventas' />
+        <Ruta icono='fas fa-cash-register' ruta='/Productos' nombre='Productos' />
+        <Ruta icono='fas fa-users' ruta='/Login' nombre='Login' />
       </div>
       <button className='bg-indigo-500 p-1 text-white rounded-md shadow-md hover:bg-red-400'>
         Cerrar Sesión
