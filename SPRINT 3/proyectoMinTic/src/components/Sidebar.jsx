@@ -1,13 +1,13 @@
 import React from 'react';
-import ImagenLogo from './ImagenLogo';
 import { Link } from 'react-router-dom';
 import useActiveRoute from 'hooks/useActiveRoute';
+import ImagenSidebar from './ImagenSidebar';
 
 const Sidebar = () => {
   return (
     <nav className='hidden lg:flex lg:w-72 border border-gray-300 h-full flex-col bg-gray-100 p-4 sidebar'>
       <Link to='/Login'>
-        <ImagenLogo />
+        <ImagenSidebar />
       </Link>
 
       <div className='my-4'>
