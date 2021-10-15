@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useActiveRoute from 'hooks/useActiveRoute';
 import ImagenSidebar from './ImagenSidebar';
 
+
 const Sidebar = () => {
   return (
     <nav className='hidden lg:flex lg:w-72 border border-gray-300 h-full flex-col bg-gray-100 p-4 sidebar'>
@@ -11,10 +12,10 @@ const Sidebar = () => {
       </Link>
 
       <div className='my-4'>
-        <Ruta icono='fas fa-user' ruta='/InterfazUsuarios' nombre='Usuarios' />
-        <Ruta icono='fas fa-car' ruta='/GestionVentas' nombre='Ventas' />
-        <Ruta icono='fas fa-cash-register' ruta='/Productos' nombre='Productos' />
-        <Ruta icono='fas fa-users' ruta='/Login' nombre='Login' />
+        <Ruta icono='' ruta='/InterfazUsuarios' nombre='Usuarios' />
+        <Ruta icono='' ruta='/Ventas' nombre='Ventas' />
+        <Ruta icono='' ruta='/Productos' nombre='Productos' />
+        <Ruta icono='' ruta='/Login' nombre='Login' />
       </div>
       <button className='bg-indigo-500 p-1 text-white rounded-md shadow-md hover:bg-red-400'>
         Cerrar Sesión
