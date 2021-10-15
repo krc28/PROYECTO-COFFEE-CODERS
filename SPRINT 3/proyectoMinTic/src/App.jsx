@@ -1,4 +1,4 @@
-import './styles/estiloVentas.css';
+import './styles/estiloHistoricoVentas.css';
 //import 'bootstrap/dist/css/bootstrap.css';
 //import IndexUsuario from 'pages/GestionUsuarios';
 //import IndexVentas from 'pages/GestionVentas';
