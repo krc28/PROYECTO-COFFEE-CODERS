@@ -1,0 +1,34 @@
+import Express from 'express';
+import {queryUsuarios, ingresarUsuario, editarUsuarios, consultarUsuarios} from '../controllers/controllerUsuarios.js';
+
+
+const rutaUsuarios = Express.Router();
+
+const callbackGeneral = (res) => (err, result) => {
+    if (err) {
+      res.status(500).send('Error consultando los usuarios');
+    } else {
+      res.json(result);
+    }
+  };
+
+
+rutaUsuarios.route('/usuarios').get((req, res) => {
+    console.log('alguien hizo get en la ruta /usuarios');
+    queryUsuarios(callbackGeneral(res));
+  });
+
+rutaUsuarios.route('/usuarios').post((req, res) => {
+    ingresarUsuario(req.body, callbackGeneral(res));
+  });
+
+rutaUsuarios.route('/usuarios/:id').get((req, res) => {
+    console.log('alguien hizo get en la ruta /ventas');
+    consultarUsuarios(req.params.id, callbackGeneral(res));
+  });
+
+rutaUsuarios.route('/usuarios/:id').patch((req, res) => {
+    editarUsuarios(req.params.id, req.body, callbackGeneral(res));
+  });
+
+export default rutaUsuarios;
