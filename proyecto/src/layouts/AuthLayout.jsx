@@ -1,4 +1,4 @@
-import ImagenLogin from 'components/ImagenLogin';
+import IconoVentas from 'components/IconoVentas';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const AuthLayout = ({ children }) => {
         </Link>
       </div>
       <div className='max-w-md w-full'>
-        <ImagenLogin />
+        <IconoVentas/>
         {children}
       </div>
     </div>
