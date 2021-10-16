@@ -1,5 +1,5 @@
 import Express from 'express';
-import {queryUsuarios, ingresarUsuario, editarUsuarios, consultarUsuarios} from '../controllers/controllerUsuarios.js';
+import {queryVenta, crearVenta, editarVenta, consultarVenta} from '../controllers/controllerVentas';
 
 
 const rutaVentas = Express.Router();
