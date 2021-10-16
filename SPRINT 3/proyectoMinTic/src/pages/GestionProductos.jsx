@@ -4,16 +4,19 @@ import {Link} from 'react-router-dom' //Es necesario anexar a demás páginas
 
 const productosBackend = [
     {
+        id: '001',
         nombre: 'Deluxe',
         variante: 'Castilla',
         origen: 'Putumayo',
     },
     {   
+        id: '002',
         nombre: 'Deluxe',
         variante: 'Castilla',
         origen: 'Putumayo',
     },
     {
+        id: '003',
         nombre: 'Deluxe',
         variante: 'Castilla',
         origen: 'Putumayo',
@@ -65,36 +68,27 @@ const GestionProductos = () => {
 const TablaProductos = ({listaProductos}) => {
     return (
         <table>
-	     <thead>
-	      <tr>
-           <th>ID producto</th>
-           <th>Nombre del producto</th>
-           <th>Descripción</th>
-	       <th>Variante</th>
-	       <th>Orígen</th>
-           <th>Precio</th>
-	       <th id="Actualizar">Detalles</th>
-          </tr>
-         </thead>
-	     <tbody>
-	      <tr>
-	                <td>13783</td>
-	                <td>Descripción</td>
-	                <td>320.000</td>
-	                <td>39756394</td>
-	                <td>Sandra Ramírez</td>
-	                <td>Creación</td>
-	                <td id="Actualizar"><button className="mainButton" type="submit">Actualizar</button></td>
-	            </tr>
-	            <tr>
-	                <td>13783</td>
-	                <td>Descripción</td>
-	                <td>520.000</td>
-	                <td>46786253</td>
-	                <td>Luis Carlos Restrepo</td>
-	                <td>Ruta</td>
-	                <td id="Actualizar"><button className="mainButton" type="submit">Actualizar</button></td>
-	            </tr> 
+            <thead>
+                <tr>
+                    <th>ID producto</th>
+                    <th>Nombre del producto</th>
+                    <th>Variante</th>
+                    <th>Orígen</th>
+                    <th id="Actualizar">Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {listaProductos.map((producto) => {
+                    return (
+                        <tr>
+	                        <td>{producto.id}</td>
+	                        <td>{producto.nombre}</td>
+	                        <td>{producto.variante}</td>
+	                        <td>{producto.origen}</td>
+	                        <td id="Actualizar"><button className="mainButton" type="submit">Actualizar</button></td>
+	                    </tr>
+                    );
+                })}
 	        </tbody>
         </table>
     );
