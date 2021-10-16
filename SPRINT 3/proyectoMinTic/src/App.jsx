@@ -1,5 +1,5 @@
-import HistoricoVentas from 'pages/HistoricoVentas';
-import 'styles/estiloHistoricoVentas.css';
+import GestionProductos from 'pages/GestionProductos';
+import 'styles/estiloGestionProductos.css';
 import { BrowserRouter as Router,Switch, Route, Link } from "react-router-dom"; 
 //import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -9,8 +9,8 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path='/historicoventas'>
-            <HistoricoVentas />
+          <Route path='/productos'>
+            <GestionProductos />
           </Route>
         </Switch>
       </Router>
