@@ -25,8 +25,8 @@ function App() {
             <Route path='/Gestionproductos'>
               <GestionProductos/>
             </Route>
-            <Route path='/Ventas'>
-              <Ventas/>
+            <Route path='/GestionVentas'>
+              <GestionVentas/>
             </Route>
           </PrivateLayout>
         </Route>
