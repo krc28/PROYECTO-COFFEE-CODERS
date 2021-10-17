@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useActiveRoute from 'hooks/useActiveRoute';
 import ImagenSidebar from './ImagenSidebar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { icon } from '@fortawesome/fontawesome-svg-core';
+
 
 
 const Sidebar = () => {
@@ -18,7 +22,7 @@ const Sidebar = () => {
         <Ruta icono='' ruta='/Login' nombre='Login' />
       </div>
       <button className='bg-indigo-500 p-1 text-white rounded-md shadow-md hover:bg-red-400'>
-        Cerrar Sesión
+       Cerrar Sesión
       </button>
     </nav>
   );
@@ -33,7 +37,7 @@ const Ruta = ({ icono, ruta, nombre }) => {
           isActive ? 'indigo' : 'gray'
         }-700 hover:bg-indigo-900 flex w-full items-center text-white rounded-md`}
       >
-        <i className={`${icono} w-10`} />
+        <icon className={`${icono} w-10`} />
         {nombre}
       </button>
     </Link>
