@@ -1,5 +1,6 @@
 import React from 'react';
 import Google from 'media/google_logo.png';
+import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -50,14 +51,36 @@ const Login = () => {
         <span className='mx-4'>------------------------</span>
         </div>
         <div>
-          <button
+          <Link to='/interfazusuarios'>
+            <GoogleLogin
+              clientId="62092738893-5kelfu8ijpf1kqn4vuo5r2i7duurquu2.apps.googleusercontent.com"
+              //buttonText="Continúa con Google"
+              render={renderProps => (
+                
+                  <button onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                    type='submit'
+                    className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-gray-300 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'>
+                    <div className='flex items-center justify-start'>
+                      <img src={Google} alt='Logo Google' className='h-6 w-6' />
+                      <span className='mx-4'>Continúa con Google</span>
+                    </div>
+                  </button>
+                
+              )}
+              onSuccess={respuestaGoogle}
+              onFailure={respuestaGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
+            </Link>
+          {/* <button
             type='submit'
             className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-indigo-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'>
             <div className='flex items-center justify-start'>
               <img src={Google} alt='Logo Google' className='h-6 w-6' />
               <span className='mx-4'>Continúa con Google</span>
             </div>
-          </button>
+          </button> */}
             {/* <button className='bg-indigo-200 p-2 my-4 text-black rounded-lg shadow-md hover:bg-indigo-300'>
               Continua con google
             </button> */}
@@ -66,6 +89,10 @@ const Login = () => {
     </div>
   );
 };
+
+const respuestaGoogle = (respuesta) => {
+  return 
+}
 
 export default Login;
 
