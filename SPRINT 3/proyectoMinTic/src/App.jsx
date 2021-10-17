@@ -17,13 +17,13 @@ function App() {
   return (
     <Router>
       <Switch>        
-        <Route path={['/InterfazUsuarios', '/Productos', '/Ventas']}>
+        <Route path={['/InterfazUsuarios', '/GestionProductos', '/GestionVentas']}>
           <PrivateLayout>
             <Route path='/InterfazUsuarios'>
               <Usuarios/>
             </Route>
-            <Route path='/productos'>
-              <Productos/>
+            <Route path='/Gestionproductos'>
+              <GestionProductos/>
             </Route>
             <Route path='/Ventas'>
               <Ventas/>
