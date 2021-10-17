@@ -14,7 +14,6 @@ const callbackGeneral = (res) => (err, result) => {
 
 
 rutaUsuarios.route('/usuarios').get((req, res) => {
-    console.log('alguien hizo get en la ruta /usuarios');
     queryUsuarios(callbackGeneral(res));
   });
 

@@ -1,44 +1,46 @@
 import 'react-toastify/dist/ReactToastify.css';
+import 'styles/EstiloIntUsuario.css';
 import React, { useEffect, useState, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCheck, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import IconoUsuarios from 'media/IconoAdminUsuarios.jpg';
 import { ToastContainer, toast } from 'react-toastify';
+import { nanoid } from 'nanoid';
+import axios from 'axios';
 
-const usuariosBackend = [
 
-    {
-        documento: '1134763965',
-        nombre: 'Isabel Duque Abad',
-        correo: 'isada12@gmail.com',
-        telefono: '3015784532',
-        estado: 'Pendiente',
-        rol: 'Vendedor',
-    },
-    {
-        documento: '433795135',
-        nombre: 'Gustavo Rojas Niño',
-        correo: 'gus48@gmail.com',
-        telefono: '3127895645',
-        estado: 'Pendiente',
-        rol: 'Vendedor',
-    },
-    {
-        documento: '1159342768',
-        nombre: 'Andrea Monsalve Tirado',
-        correo: 'monsalvetirado@gmail.com',
-        telefono: '3046579123',
-        estado: 'Pendiente',
-        rol: 'Vendedor',
-    },
-]
 
-const Usuarios=()=>{
+const UsuariosPrueba=()=>{
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [usuarios, setUsuarios] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Usuario');
+    const [consulta, setConsulta] = useState(true);
 
     useEffect(() => {
-        setUsuarios(usuariosBackend);
-      }, []);
+        const obtenerUsuarios = async ()=>{
+            const options = {
+                method: 'GET',
+                url: 'http://localhost:5000/usuarios/',
+                headers: {'Content-Type': 'application/json'}
+              };
+              
+              axios.request(options).then(function (response) {
+                setUsuarios(response.data);
+              }).catch(function (error) {
+                console.error(error);
+              });
+        };
+        if (consulta){
+            obtenerUsuarios();
+            setConsulta(false);
+        }
+      }, [consulta]);
+
+    useEffect(()=>{
+        if (mostrarTabla){
+            setConsulta(true);
+        }
+    },[mostrarTabla]);
 
     useEffect(() => {
         if (mostrarTabla) {
@@ -58,7 +60,7 @@ const Usuarios=()=>{
                 </button>
             </div>
             {mostrarTabla ? (
-            <TablaUsuarios listaUsuarios={usuarios} />
+            <TablaUsuarios listaUsuarios={usuarios} setConsulta={setConsulta} />
         ) : (
             <RegistroUsuarios
             setMostrarTabla={setMostrarTabla}
@@ -85,9 +87,26 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
             regusuarios.forEach((value, key) => {
             nuevoUsuario[key] = value;
             });
+
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:5000/usuarios/',
+            headers: { 'Content-Type': 'application/json' },
+            data: { documento: nuevoUsuario.documento, nombre: nuevoUsuario.nombre, correo: nuevoUsuario.correo, telefono: nuevoUsuario.telefono, estado: nuevoUsuario.estado, rol: nuevoUsuario.rol },
+            };
+              
+        await axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+                toast.success('Usuario agregado con éxito');
+            })
+            .catch(function (error) {
+                console.error(error);
+                toast.error('Error creando el usuario');
+            });
         
         setMostrarTabla(true)    
-        toast.success('Usuario agregado con éxito');
         setUsuarios([...listaUsuarios, nuevoUsuario]);
     }
 
@@ -172,12 +191,29 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
     )
 }
 
-const TablaUsuarios=({listaUsuarios})=>{
+const TablaUsuarios=({listaUsuarios, setConsulta})=>{ 
+
+    const [buscar, setBuscar] = useState('');
+    const [datoFiltrado, setDatoFiltrado] = useState(listaUsuarios)
+
+    useEffect(()=>{
+        setDatoFiltrado(
+            listaUsuarios.filter((elemento)=>{
+                return JSON.stringify(elemento).toLowerCase().includes(buscar.toLowerCase());
+            })
+        )
+    },[buscar, listaUsuarios]);
+
 
     return(
-            <div className='flex flex-col items-center justify-center'>
+            <div className='flex flex-col items-center justify-center w-full'>
                 <h1 className='font-bold text-4xl text-blue-500 my-5 text-center'> Listado de Usuarios</h1>
-                <table className='border border-green-500 table-auto'>
+                <input placeholder='Buscar'
+                value={buscar}
+                onChange={(e)=>setBuscar(e.target.value)}
+                className='border-2 border-gray-700 px-3 py-1 rounded-md focus:outline-none focus:border-blue-500'
+                 />
+                <table className='tabla border border-green-500 table-auto'>
                     <thead>
                     <tr>
                         <th className='border border-blue-600'>Documento</th>
@@ -186,19 +222,13 @@ const TablaUsuarios=({listaUsuarios})=>{
                         <th className='border border-blue-600'>Teléfono</th>
                         <th className='border border-blue-600'>Estado</th>
                         <th className='border border-blue-600'>Rol</th>
+                        <th className='border border-blue-600'>Editar Campos</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {listaUsuarios.map((usuarios) => {
+                        {datoFiltrado.map((usuarios) => {
                         return (
-                        <tr>
-                            <td>{usuarios.documento}</td>
-                            <td>{usuarios.nombre}</td>
-                            <td>{usuarios.correo}</td>
-                            <td>{usuarios.telefono}</td>
-                            <td>{usuarios.estado}</td>
-                            <td>{usuarios.rol}</td>
-                        </tr>
+                            <FilaUsuario key={nanoid()} usuarios={usuarios} setConsulta={setConsulta}/>
                         );
                     })}
                     </tbody>
@@ -207,4 +237,92 @@ const TablaUsuarios=({listaUsuarios})=>{
     )
 }
 
-export default Usuarios;
+const FilaUsuario = ({usuarios, setConsulta})=>{
+
+    const [editar, setEditar] = useState(false);
+    const [infoEditarUsuario, setInfoEditarUsuario] = useState({
+        documento:usuarios.documento,
+        nombre:usuarios.nombre,
+        correo:usuarios.correo,
+        telefono:usuarios.telefono,
+        estado:usuarios.estado,
+        rol:usuarios.rol,
+
+    })
+
+    const actualizarUsuario = async ()=>{
+        const options = {
+            method: 'PATCH',
+            url: `http://localhost:5000/usuarios/${usuarios._id}`,
+            headers: {'Content-Type': 'application/json'},
+            data: { ...infoEditarUsuario },
+          };
+          
+          await axios.request(options).then(function (response) {
+            console.log(response.data);
+            toast.success('Usuario modificado con éxito');
+            setConsulta(true);
+          }).catch(function (error) {
+            toast.error('Error modificando los datos del usuario');
+            console.error(error);
+          });
+
+    }
+
+    return(
+        <tr>
+        {editar ? (
+            <>
+            <td>
+                <input type='text' value={infoEditarUsuario.documento} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, documento:e.target.value})} />
+            </td>
+            <td>
+                <input type='text' value={infoEditarUsuario.nombre} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, nombre:e.target.value})}/>
+            </td>
+            <td>
+                <input type='text' value={infoEditarUsuario.correo} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, correo:e.target.value})}/>
+            </td>
+            <td>
+                <input type='text' value={infoEditarUsuario.telefono} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, telefono:e.target.value})}/>
+            </td>
+            <td>
+            <select value={infoEditarUsuario.estado} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, estado:e.target.value})} >
+                <option disabled value={0}>Seleccione una opción</option>
+                <option>Pendiente</option>
+                <option>Autorizado</option>
+                <option>No Autorizado</option>
+            </select>
+            </td>
+            <td>
+            <select value={infoEditarUsuario.rol} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, rol:e.target.value})} >
+                <option disabled value={0}>Seleccione una opción</option>
+                <option>Vendedor</option>
+                <option>Administrador</option>
+            </select>
+            </td>
+            </>
+        ):(
+            <>
+            <td>{usuarios.documento}</td>
+            <td>{usuarios.nombre}</td>
+            <td>{usuarios.correo}</td>
+            <td>{usuarios.telefono}</td>
+            <td>{usuarios.estado}</td>
+            <td>{usuarios.rol}</td>
+            </>
+        )}
+        <td>
+            <div className='flex items-center justify-center'>
+            {editar ? (
+                <FontAwesomeIcon onClick={()=>actualizarUsuario() } icon={faUserCheck} className='text-blue-400 hover:text-blue-900' />
+            ):(
+                <FontAwesomeIcon onClick={()=>setEditar(!editar)} icon={faUserEdit} className='text-blue-400 hover:text-blue-900' />
+            )} 
+            </div>
+        </td>
+        </tr>       
+    )
+}
+
+export default UsuariosPrueba;
+

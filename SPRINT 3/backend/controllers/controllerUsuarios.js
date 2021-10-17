@@ -1,9 +1,8 @@
 import { ObjectId } from 'mongodb';
-import { getDB } from '../db/dbUsuarios.js';
+import { getDB } from '../db/dbMongo.js';
 
 const queryUsuarios = async (callback) => {
     const baseDeDatos = getDB();
-    console.log('query');
     await baseDeDatos.collection('usuarios').find({}).toArray(callback);
   };
 
