@@ -70,19 +70,12 @@ const GestionProductos = () => {
                 {mostrarTabla ? (
                     <TablaProductos listaProductos={productos} />
                 ) : (
-                    <FormularioRegistroProductos />
+                    <FormularioRegistroProductos 
+                        fMostrarTabla={setMostrarTabla}
+                        listaProductos={productos}
+                        fAgregarProducto={setProductos} />
                 )}
-                <ToastContainer
-                    position="bottom-center"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />
+                <ToastContainer position="bottom-center" autoClose={5000} />
             </div>
         </body>
     );
@@ -131,7 +124,7 @@ const Ensayo = () => {
     );
 };
 
-const FormularioRegistroProductos = () => {
+const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarProducto,}) => {
     const [id, setId] = useState()
     const [nombre, setNombre] = useState()
     const [linea, setLinea] = useState()
@@ -141,8 +134,13 @@ const FormularioRegistroProductos = () => {
 
     const enviarAlBackend = () => {
         console.log('Id', id, 'Nombre', nombre, 'Linea', linea, 'Variante', variante, 'Origen', origen, 'Precio', precio);
-        toast.succes('¡Su producto ha sido registrado exitosamente!');
-    }   
+        toast.success('¡Su producto ha sido registrado exitosamente!');
+        fMostrarTabla(true);
+        fAgregarProducto([
+            ...listaProductos, 
+            {id:id, nombre:nombre, linea:linea, variante:variante, origen:origen, precio:precio },
+        ]);
+    };   
 
     return (
         <div className='flex flex-col items-center justify-center'>
