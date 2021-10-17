@@ -125,21 +125,25 @@ const Ensayo = () => {
 };
 
 const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarProducto,}) => {
-    const [id, setId] = useState()
-    const [nombre, setNombre] = useState()
-    const [linea, setLinea] = useState()
-    const [variante, setVariante] = useState()
-    const [origen, setOrigen] = useState()
-    const [precio, setPrecio] = useState()
+    const [id, setId] = useState("")
+    const [nombre, setNombre] = useState("")
+    const [linea, setLinea] = useState("")
+    const [variante, setVariante] = useState("")
+    const [origen, setOrigen] = useState("")
+    const [precio, setPrecio] = useState("")
 
     const enviarAlBackend = () => {
         console.log('Id', id, 'Nombre', nombre, 'Linea', linea, 'Variante', variante, 'Origen', origen, 'Precio', precio);
-        toast.success('¡Su producto ha sido registrado exitosamente!');
-        fMostrarTabla(true);
-        fAgregarProducto([
-            ...listaProductos, 
-            {id:id, nombre:nombre, linea:linea, variante:variante, origen:origen, precio:precio },
-        ]);
+        if(id === "" || nombre === "" || linea === "" || variante === "" || origen === "" || precio === "" ) {
+            toast.error('Diligencie el formulario completo');
+        } else {
+            toast.success('¡Su producto ha sido registrado exitosamente!');
+            fMostrarTabla(true);
+            fAgregarProducto([
+                ...listaProductos, 
+                {id:id, nombre:nombre, linea:linea, variante:variante, origen:origen, precio:precio },
+           ]);
+        } 
     };   
 
     return (
@@ -156,7 +160,8 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                         value={id} 
                         onChange={(e) => {
                         setId(e.target.value);
-                    }}
+                        }}
+                        required
                     />
                 </label>
                 <label className='flex flex-col' htmlFor='nombre'>
@@ -169,7 +174,8 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                         value={nombre} 
                         onChange={(e) => {
                             setNombre(e.target.value);
-                        }} 
+                        }}
+                        required
                     />
                 </label>
                 <label className='flex flex-col' htmlFor='linea'>
@@ -202,7 +208,6 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                         <option>Arabica</option>
                         <option>Robusta</option>
                         <option>Liberica</option>
-                        <option>Excelsa</option>
                     </select>
                 </label>    
                 <label className='flex flex-col' htmlFor='origen'>
@@ -215,7 +220,8 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                         value={origen} 
                         onChange={(e) => {
                             setOrigen(e.target.value);
-                        }}  
+                        }}
+                        required  
                     />
                 </label>       
                 <label className='flex flex-col' htmlFor='precio'>
@@ -228,11 +234,12 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                         value={precio} 
                         onChange={(e) => {
                             setPrecio(e.target.value);
-                        }}  
+                        }}
+                        required
                     />
                 </label>  
                 <button 
-                    type='button' 
+                    type='submit' 
                     className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
                     onClick={()=>{enviarAlBackend();
                     }}
