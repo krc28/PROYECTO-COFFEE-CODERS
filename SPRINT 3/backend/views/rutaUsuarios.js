@@ -1,5 +1,5 @@
 import Express from 'express';
-import {queryUsuarios, ingresarUsuario, editarUsuarios, consultarUsuarios} from '../controllers/controllerUsuarios.js';
+import {queryUsuarios, ingresarUsuario, editarUsuarios} from '../controllers/controllerUsuarios.js';
 
 
 const rutaUsuarios = Express.Router();
@@ -22,12 +22,7 @@ rutaUsuarios.route('/usuarios').post((req, res) => {
     ingresarUsuario(req.body, callbackGeneral(res));
   });
 
-rutaUsuarios.route('/usuarios/:id').get((req, res) => {
-    console.log('alguien hizo get en la ruta /ventas');
-    consultarUsuarios(req.params.id, callbackGeneral(res));
-  });
-
-rutaUsuarios.route('/usuarios/:id').patch((req, res) => {
+  rutaUsuarios.route('/usuarios/:id').patch((req, res) => {
     editarUsuarios(req.params.id, req.body, callbackGeneral(res));
   });
 
