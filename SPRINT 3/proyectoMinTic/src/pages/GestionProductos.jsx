@@ -43,14 +43,15 @@ const GestionProductos = () => {
         }
     }, [mostrarTabla]);
     return (
-        <div className="App">
+        <body>
             <header className="barraNav">Gestión de productos</header>
-            <div className="contenedor">
-                <h2 className="modulo">Registro de productos</h2>
+            <div className='bg-gris'>
+                <Ensayo />
+                <h2 className="bg-blanco text-2x1 font-bold leading-tight font-mono" >Registro de productos</h2>
                 <button 
                     onClick={()=>{setMostrarTabla(!mostrarTabla);
                     }}
-                    className="mainButton"
+                    className="bg-verde text-blanco p-5"
                 >
                     {textoBoton}
                 </button>
@@ -60,46 +61,58 @@ const GestionProductos = () => {
                     <FormularioRegistroProductos />
                 )}
             </div>
-        </div>
+        </body>
     );
 };
 
 
 const TablaProductos = ({listaProductos}) => {
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>ID producto</th>
-                    <th>Nombre del producto</th>
-                    <th>Variante</th>
-                    <th>Orígen</th>
-                    <th id="Actualizar">Detalles</th>
-                </tr>
-            </thead>
-            <tbody>
-                {listaProductos.map((producto) => {
-                    return (
-                        <tr>
-	                        <td>{producto.id}</td>
-	                        <td>{producto.nombre}</td>
-	                        <td>{producto.variante}</td>
-	                        <td>{producto.origen}</td>
-	                        <td id="Actualizar"><button className="mainButton" type="submit">Actualizar</button></td>
-	                    </tr>
-                    );
-                })}
-	        </tbody>
-        </table>
+        <div className='bg-ensayo'>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID producto</th>
+                        <th>Nombre del producto</th>
+                        <th>Variante</th>
+                        <th>Orígen</th>
+                        <th id="Actualizar">Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listaProductos.map((producto) => {
+                        return (
+                            <tr>
+                                <td>{producto.id}</td>
+                                <td>{producto.nombre}</td>
+                                <td>{producto.variante}</td>
+                                <td>{producto.origen}</td>
+                                <td id="Actualizar"><button className="mainButton" type="submit">Actualizar</button></td>
+                            </tr>
+                        );
+                     })}
+	            </tbody>
+            </table>
+        </div>
     );
 };
 
+const Ensayo = () => {
+    return (
+        <div>
+            <div className='bg-green-500'>Hola mundo</div>
+        </div>
+    );
+};
 
 const FormularioRegistroProductos = () => {
     return (
         <div className='flex flex-col items-center justify-center'>
-            <h2 className='text-2x1 font-extrabold text-gray-800'>Registra un producto</h2>
+            <h3 className='text-2x1 font-extrabold text-gray-800'>Registra un producto</h3>
             <form className='grid-grid-cols-2'>
+                <input className='bg-gray border border-gray-600 p2 rounded-lg m-2' type='text' />
+                <input className='bg-gray-50 border border-gray-600 p2 rounded-lg m-2' type='text' />
+                <input className='bg-gray-50 border border-gray-600 p2 rounded-lg m-2' type='text' /><input className='bg-gray-50 border border-gray-600 p2 rounded-lg m-2' type='text' />
                 <input className='bg-gray-50 border border-gray-600 p2 rounded-lg m-2' type='text' />
                 <input className='bg-gray-50 border border-gray-600 p2 rounded-lg m-2' type='text' />
                 <input className='bg-gray-50 border border-gray-600 p2 rounded-lg m-2' type='text' />

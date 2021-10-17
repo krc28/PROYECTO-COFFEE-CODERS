@@ -21,9 +21,6 @@ tr:hover td{
     color:white;
 }
 
-.contenedor {
-    background-color: #eff2f3;
-}
 
 .barraNav {
     padding: 20px;
@@ -34,14 +31,6 @@ tr:hover td{
     font-family: Dsignes;
 }
 
-.modulo {
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 1px 1px 2px #7E7D7D;
-    display: flex;
-    background-color: #ffffff;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}   
 
 .segundoMod {
     display: grid;
