@@ -12,7 +12,7 @@ const ingresarUsuario = async (datosUsuarios, callback) => {
     await baseDeDatos.collection('usuarios').insertOne(datosUsuarios, callback);
   };
 
-const editarUsuarios = async (id, edicion, callback) => {
+  const editarUsuarios = async (id, edicion, callback) => {
     const filtroUsuarios = { _id: new ObjectId(id) };
     const operacion = {
       $set: edicion,
@@ -23,9 +23,5 @@ const editarUsuarios = async (id, edicion, callback) => {
       .findOneAndUpdate(filtroUsuarios, operacion, { upsert: true, returnOriginal: true }, callback);
   };
 
-const consultarUsuarios = async (id, callback) => {
-    const baseDeDatos = getDB();
-    await baseDeDatos.collection('usuarios').findOne({ _id: new ObjectId(id) }, callback);
-  };
 
-export { queryUsuarios, ingresarUsuario, editarUsuarios, consultarUsuarios };
+export { queryUsuarios, ingresarUsuario, editarUsuarios};
