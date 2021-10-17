@@ -1,13 +1,11 @@
 import 'App.css';
 import AuthLayout from 'layouts/AuthLayout';
 import PrivateLayout from 'layouts/PrivateLayout';
-// import PublicLayout from 'layouts/PublicLayout';
-// import IndexVentas from 'pages/GestionVentas';
-import Ventas from 'pages/Ventas';
+import GestionVentas from 'pages/GestionVentas';
 import Usuarios from 'pages/InterfazUsuarios';
 import Login from 'pages/Login';
-import Productos from 'pages/Productos';
-import Ventas2 from 'pages/Ventas2';
+import GestionProductos from 'pages/GestionProductos';
+
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 
 
