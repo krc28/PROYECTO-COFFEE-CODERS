@@ -41,7 +41,7 @@ const GestionProductos = () => {
     const [colorBoton, setColorBoton] = useState('green');
 
     useEffect(() => {
-        //obtener lista de vehiculos desde el backend
+        //obtener lista de productos desde el backend
         setProductos(productosBackend);
     }, []);
 
