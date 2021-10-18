@@ -10,7 +10,7 @@ import axios from 'axios';
 
 
 
-const UsuariosPrueba=()=>{
+const Usuarios=()=>{
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [usuarios, setUsuarios] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Usuario');
@@ -324,5 +324,5 @@ const FilaUsuario = ({usuarios, setConsulta})=>{
     )
 }
 
-export default UsuariosPrueba;
+export default Usuarios;
 
