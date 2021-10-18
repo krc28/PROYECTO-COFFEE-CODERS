@@ -38,10 +38,10 @@ const GestionProductos = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [productos, setProductos]  = useState([]);
     const [textoBoton, setTextoBoton] = useState('Registra un producto');
-    const [colorBoton, setColorBoton] = useState('green');
+    const [colorBoton, setColorBoton] = useState('green-200');
 
     useEffect(() => {
-        //obtener lista de productos desde el backend
+        //obtener lista de vehiculos desde el backend
         setProductos(productosBackend);
     }, []);
 
@@ -50,33 +50,33 @@ const GestionProductos = () => {
             setTextoBoton('Registra un producto');
             setColorBoton('green');
         } else {
-            setTextoBoton('Ver todos los productos');
-            setColorBoton('red');
+            setTextoBoton('Ver el inventario');
+            setColorBoton('green');
         }
     }, [mostrarTabla]);
     return (
-        <body>
-            <header className="barraNav">Gestión de productos</header>
-            <div className='bg-gris'>
-                <Ensayo />
-                <h2 className="bg-blanco text-2x1 font-bold leading-tight font-mono" >Registro de productos</h2>
-                <button 
-                    onClick={()=>{setMostrarTabla(!mostrarTabla);
-                    }}
-                    className={`bg-${colorBoton}-500 p-5`}
-                >
-                    {textoBoton}
-                </button>
-                {mostrarTabla ? (
-                    <TablaProductos listaProductos={productos} />
-                ) : (
-                    <FormularioRegistroProductos 
-                        fMostrarTabla={setMostrarTabla}
-                        listaProductos={productos}
-                        fAgregarProducto={setProductos} />
-                )}
-                <ToastContainer position="bottom-center" autoClose={5000} />
-            </div>
+        <body className='bg-gray-100'>
+            <div className='w-screen h-screen justify-center items-center flex flex-col'>
+                <h1 className='text-4xl text-center text-gray-800 my-2 font-bold font-sans w-full' >Registro de productos</h1>
+                <div>
+                    <button 
+                        onClick={()=>{setMostrarTabla(!mostrarTabla);
+                        }}
+                        className={`bg-${colorBoton}-500 p-1 rounded-full font-sans text-white `}
+                    >
+                        {textoBoton}
+                    </button>
+                    {mostrarTabla ? (
+                        <TablaProductos listaProductos={productos} />
+                    ) : (
+                        <FormularioRegistroProductos 
+                            fMostrarTabla={setMostrarTabla}
+                            listaProductos={productos}
+                            fAgregarProducto={setProductos} />
+                    )}
+                    <ToastContainer position="bottom-center" autoClose={5000} />
+                </div>
+            </div>    
         </body>
     );
 };
@@ -84,11 +84,11 @@ const GestionProductos = () => {
 
 const TablaProductos = ({listaProductos}) => {
     return (
-        <div className='bg-ensayo'>
-            <table>
-                <thead>
+        <div className='flex flex-col items-center font-sans justify-center'>
+            <table className='p-2 m-2 items-center'>
+                <thead className='bg-green-500 text-white'>
                     <tr>
-                        <th>ID producto</th>
+                        <th>ID</th>
                         <th>Nombre del producto</th>
                         <th>Linea</th>
                         <th>Variante</th>
@@ -111,15 +111,6 @@ const TablaProductos = ({listaProductos}) => {
                     })}
                 </tbody>
             </table>
-        </div>
-    );
-};
-
-
-const Ensayo = () => {
-    return (
-        <div>
-            <div className='bg-green-900'>Hola mundo</div>
         </div>
     );
 };
@@ -148,14 +139,14 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
 
     return (
         <div className='flex flex-col items-center justify-center'>
-            <h3 className='text-2x1 font-extrabold text-gray-800'>Registra un producto</h3>
-            <form className='flex flex-col'>
+            <h2 className='text-2x1 font-bold text-gray-800 font-sans items-center justify-center'>Ingresa un nuevo producto</h2>
+            <form className='grid grid-cols-2 font-sans'>
                 <label className='flex flex-col' htmlFor='id'>
                     ID
                     <input 
                     name='id'
-                        className='bg-gray border border-gray-600 p2 rounded-lg m-2' 
-                        type='text' 
+                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2 font-sans' 
+                        type='number' 
                         placeholder='08937'
                         value={id} 
                         onChange={(e) => {
@@ -168,7 +159,7 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Nombre
                     <input 
                         name='nombre'
-                        className='bg-gray border border-gray-600 p2 rounded-lg m-2' 
+                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
                         type='text' 
                         placeholder='Juan Valtez'
                         value={nombre} 
@@ -182,7 +173,7 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Linea
                     <select
                         name='linea'
-                        className='bg-gray border border-gray-600 p2 rounded-lg m-2'
+                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
                         value={linea} 
                         onChange={(e) => {
                             setLinea(e.target.value);
@@ -198,7 +189,7 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Variante
                     <select           
                         name='variante' 
-                        className='bg-gray border border-gray-600 p2 rounded-lg m-2'
+                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
                         value={variante} 
                         onChange={(e) => {
                             setVariante(e.target.value);
@@ -214,7 +205,7 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Origen
                     <input 
                         name='origen'
-                        className='bg-gray border border-gray-600 p2 rounded-lg m-2' 
+                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
                         type='text' 
                         placeholder='Putumayo'
                         value={origen} 
@@ -228,8 +219,8 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Precio
                     <input 
                         name='precio'
-                        className='bg-gray border border-gray-600 p2 rounded-lg m-2' 
-                        type='text' 
+                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                        type='number' 
                         placeholder='30000'
                         value={precio} 
                         onChange={(e) => {
@@ -240,7 +231,7 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                 </label>  
                 <button 
                     type='submit' 
-                    className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
+                    className='col-span-2 bg-green-400 p-1 rounded-full shadow-md hover:bg-green-500 text-white'
                     onClick={()=>{enviarAlBackend();
                     }}
                 >
