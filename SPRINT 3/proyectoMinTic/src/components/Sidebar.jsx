@@ -5,26 +5,30 @@ import ImagenSidebar from './ImagenSidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Sidebar = () => {
+  const { logout } = useAuth0();
   return (
     <nav className='hidden lg:flex lg:w-72 border border-gray-300 h-full flex-col bg-gray-100 p-4 sidebar'>
-      <Link to='/Login'>
-        <ImagenSidebar />
-      </Link>
+        <Link to='/Login'>
+          <ImagenSidebar />
+        </Link>
 
-      <div className='my-4'>
-        <Ruta icono='' ruta='/InterfazUsuarios' nombre='Usuarios' />
-        <Ruta icono='' ruta='/GestionVentas' nombre='Ventas' />
-        <Ruta icono='' ruta='/GestionProductos' nombre='Productos' />
-        <Ruta icono='' ruta='/Login' nombre='Login' />
-      </div>
-      <button className='bg-indigo-500 p-1 text-white rounded-md shadow-md hover:bg-red-400'>
-       Cerrar Sesión
-      </button>
-    </nav>
+        <div className='my-4'>
+          <Ruta icono='' ruta='/InterfazUsuarios' nombre='Usuarios' />
+          <Ruta icono='' ruta='/GestionVentas' nombre='Ventas' />
+          <Ruta icono='' ruta='/GestionProductos' nombre='Productos' />
+          <Ruta icono='' ruta='/Login' nombre='Login' />
+        </div>
+        <button
+          onClick={() => logout({ returnTo: window.location.origin })}
+          className='bg-indigo-500 p-1 text-white rounded-md shadow-md hover:bg-red-400'
+        >
+          Cerrar Sesión
+        </button>
+      </nav>
   );
 };
 
