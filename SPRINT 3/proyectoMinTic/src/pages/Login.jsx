@@ -54,6 +54,7 @@ const Login = () => {
           <Link to='/interfazusuarios'>
             <GoogleLogin
               clientId="62092738893-5kelfu8ijpf1kqn4vuo5r2i7duurquu2.apps.googleusercontent.com"
+              redirectUri="http://localhost:3000/InterfazUsuarios"
               //buttonText="Continúa con Google"
               render={renderProps => (
                 
