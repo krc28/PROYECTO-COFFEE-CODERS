@@ -18,7 +18,7 @@ function App() {
     <Auth0Provider
       domain="coffeecoders-mintic.us.auth0.com"
       clientId="edxTN4GxPbyqKvscYNUQgWamqbtkHUaa"
-      redirectUri={window.location.origin}
+      redirectUri="http://localhost:3000/InterfazUsuarios"
     >
       <Router>
          <Switch>
