@@ -1,7 +1,6 @@
 import React, {} from 'react';
 import Sidebar from 'components/Sidebar';
 import SidebarResponsive from 'components/SidebarResponsive';
-import { useAuth0 } from "@auth0/auth0-react";
 import PrivateRoute from 'components/PrivateRoute';
  
 

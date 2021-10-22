@@ -2,25 +2,33 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useActiveRoute from 'hooks/useActiveRoute';
 import ImagenSidebar from './ImagenSidebar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { icon } from '@fortawesome/fontawesome-svg-core';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Sidebar = () => {
-  const { logout } = useAuth0();
+  const { user, logout } = useAuth0();
+
+  const cerrarSesion = () => {
+    logout({ returnTo: 'https://localhost:3000/Login' });
+    localStorage.setItem('token', null);
+  };
+
   return (
     <nav className='hidden lg:flex lg:w-72 border border-gray-300 h-full flex-col bg-gray-100 p-4 sidebar'>
-        <Link to='/Login'>
+        {/* <Link to='/Login'> */}
           <ImagenSidebar />
-        </Link>
+        {/* </Link> */}
+
+        <div>
+          <Ruta  ruta='/InterfazUsuarios' nombre='Perfil' usuario={user} />
+        </div>
 
         <div className='my-4'>
+          
           <Ruta icono='' ruta='/InterfazUsuarios' nombre='Usuarios' />
           <Ruta icono='' ruta='/GestionVentas' nombre='Ventas' />
           <Ruta icono='' ruta='/GestionProductos' nombre='Productos' />
-          <Ruta icono='' ruta='/Login' nombre='Login' />
+          {/* <Ruta icono='' ruta='/Login' nombre='Login' /> */}
         </div>
         <button
           onClick={() => logout({ returnTo: window.location.origin })}
@@ -32,7 +40,7 @@ const Sidebar = () => {
   );
 };
 
-const Ruta = ({ icono, ruta, nombre }) => {
+const Ruta = ({ icono, ruta, nombre, usuario }) => {
   const isActive = useActiveRoute(ruta);
   return (
     <Link to={ruta}>
@@ -41,8 +49,17 @@ const Ruta = ({ icono, ruta, nombre }) => {
           isActive ? 'indigo' : 'gray'
         }-700 hover:bg-indigo-900 flex w-full items-center text-white rounded-md`}
       >
-        <icon className={`${icono} w-10`} />
-        {nombre}
+        {usuario ? (
+          <>
+          <img src={usuario.picture} className='h-5 w-5 rounded-full' />
+            {usuario.name}</>
+        ) : (
+          <>
+            <i className={`${icono} w-10`} />
+             {nombre}
+          </>
+        )}
+                
       </button>
     </Link>
   );
