@@ -27,12 +27,13 @@ const Usuarios=()=>{
                 url: 'http://localhost:5000/usuarios/',
                 headers: {'Content-Type': 'application/json', Authorization: getToken()}
             }
-              axios.request(options).then(function (response) {
+              await axios.request(options).then(function (response) {
                 setUsuarios(response.data);
               }).catch(function (error) {
                 console.error(error);
               });
         };
+
         if (consulta){
             obtenerUsuarios();
             setConsulta(false);
@@ -97,7 +98,7 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios, getToken})
             method: 'POST',
             url: 'http://localhost:5000/usuarios/',
             headers: { 'Content-Type': 'application/json', Authorization: getToken() },
-            data: { documento: nuevoUsuario.documento, nombre: nuevoUsuario.nombre, correo: nuevoUsuario.correo, telefono: nuevoUsuario.telefono, estado: nuevoUsuario.estado, rol: nuevoUsuario.rol },
+            data: { documento: nuevoUsuario.documento, name: nuevoUsuario.name, email: nuevoUsuario.email, telefono: nuevoUsuario.telefono, estado: nuevoUsuario.estado, rol: nuevoUsuario.rol },
             };
               
         await axios
@@ -128,12 +129,12 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios, getToken})
                         className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='number' 
                         placeholder='1153763237' 
-                        required/>
+                        />
                 </label>
                 <label className='flex flex-col' htmlFor='nombre'> 
                     Ingrese su Nombre 
                     <input 
-                        name='nombre' 
+                        name='name' 
                         className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='text' 
                         placeholder='Ana Giraldo Cardona' 
@@ -144,7 +145,7 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios, getToken})
                 <label className='flex flex-col mx-5' htmlFor='correo'> 
                     Ingrese su Correo
                     <input 
-                        name='correo' 
+                        name='email' 
                         className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='email' 
                         placeholder='anagc21@gmail.com' 
@@ -247,8 +248,8 @@ const FilaUsuario = ({usuarios, setConsulta, getToken})=>{
     const [editar, setEditar] = useState(false);
     const [infoEditarUsuario, setInfoEditarUsuario] = useState({
         documento:usuarios.documento,
-        nombre:usuarios.nombre,
-        correo:usuarios.correo,
+        name:usuarios.name,
+        email:usuarios.email,
         telefono:usuarios.telefono,
         estado:usuarios.estado,
         rol:usuarios.rol,
@@ -276,6 +277,7 @@ const FilaUsuario = ({usuarios, setConsulta, getToken})=>{
     }
 
     return(
+
         <tr>
         {editar ? (
             <>
@@ -283,10 +285,10 @@ const FilaUsuario = ({usuarios, setConsulta, getToken})=>{
                 <input type='text' value={infoEditarUsuario.documento} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, documento:e.target.value})} />
             </td>
             <td>
-                <input type='text' value={infoEditarUsuario.nombre} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, nombre:e.target.value})}/>
+                <input type='text' value={infoEditarUsuario.name} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, name:e.target.value})}/>
             </td>
             <td>
-                <input type='text' value={infoEditarUsuario.correo} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, correo:e.target.value})}/>
+                <input type='text' value={infoEditarUsuario.email} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, email:e.target.value})}/>
             </td>
             <td>
                 <input type='text' value={infoEditarUsuario.telefono} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, telefono:e.target.value})}/>
@@ -310,8 +312,8 @@ const FilaUsuario = ({usuarios, setConsulta, getToken})=>{
         ):(
             <>
             <td>{usuarios.documento}</td>
-            <td>{usuarios.nombre}</td>
-            <td>{usuarios.correo}</td>
+            <td>{usuarios.name}</td>
+            <td>{usuarios.email}</td>
             <td>{usuarios.telefono}</td>
             <td>{usuarios.estado}</td>
             <td>{usuarios.rol}</td>
@@ -326,7 +328,9 @@ const FilaUsuario = ({usuarios, setConsulta, getToken})=>{
             )} 
             </div>
         </td>
-        </tr>       
+        </tr>    
+
+   
     )
 }
 
