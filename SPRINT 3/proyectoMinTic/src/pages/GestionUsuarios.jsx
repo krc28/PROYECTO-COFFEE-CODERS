@@ -16,25 +16,30 @@ const Usuarios=()=>{
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Usuario');
     const [consulta, setConsulta] = useState(true);
 
+    const getToken =()=>{
+        return `Bearer ${localStorage.getItem('token')}`;
+    }
+
     useEffect(() => {
         const obtenerUsuarios = async ()=>{
             const options = {
                 method: 'GET',
                 url: 'http://localhost:5000/usuarios/',
-                headers: {'Content-Type': 'application/json'}
-              };
-              
-              axios.request(options).then(function (response) {
+                headers: {'Content-Type': 'application/json', Authorization: getToken()}
+            }
+              await axios.request(options).then(function (response) {
                 setUsuarios(response.data);
               }).catch(function (error) {
                 console.error(error);
               });
         };
+
         if (consulta){
             obtenerUsuarios();
             setConsulta(false);
         }
       }, [consulta]);
+
 
     useEffect(()=>{
         if (mostrarTabla){
@@ -60,12 +65,13 @@ const Usuarios=()=>{
                 </button>
             </div>
             {mostrarTabla ? (
-            <TablaUsuarios listaUsuarios={usuarios} setConsulta={setConsulta} />
+            <TablaUsuarios listaUsuarios={usuarios} setConsulta={setConsulta} getToken={getToken} />
         ) : (
             <RegistroUsuarios
             setMostrarTabla={setMostrarTabla}
 	    listaUsuarios={usuarios}
             setUsuarios={setUsuarios}
+            getToken={getToken}
             />
         )}
         <ToastContainer position='bottom-center' autoClose={5000} />     
@@ -75,7 +81,7 @@ const Usuarios=()=>{
 }
 
 
-const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
+const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios, getToken})=>{
 
     const form = useRef(null);
 
@@ -91,8 +97,8 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
         const options = {
             method: 'POST',
             url: 'http://localhost:5000/usuarios/',
-            headers: { 'Content-Type': 'application/json' },
-            data: { documento: nuevoUsuario.documento, nombre: nuevoUsuario.nombre, correo: nuevoUsuario.correo, telefono: nuevoUsuario.telefono, estado: nuevoUsuario.estado, rol: nuevoUsuario.rol },
+            headers: { 'Content-Type': 'application/json', Authorization: getToken() },
+            data: { documento: nuevoUsuario.documento, name: nuevoUsuario.name, email: nuevoUsuario.email, telefono: nuevoUsuario.telefono, estado: nuevoUsuario.estado, rol: nuevoUsuario.rol },
             };
               
         await axios
@@ -123,12 +129,12 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
                         className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='number' 
                         placeholder='1153763237' 
-                        required/>
+                        />
                 </label>
                 <label className='flex flex-col' htmlFor='nombre'> 
                     Ingrese su Nombre 
                     <input 
-                        name='nombre' 
+                        name='name' 
                         className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='text' 
                         placeholder='Ana Giraldo Cardona' 
@@ -139,7 +145,7 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
                 <label className='flex flex-col mx-5' htmlFor='correo'> 
                     Ingrese su Correo
                     <input 
-                        name='correo' 
+                        name='email' 
                         className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='email' 
                         placeholder='anagc21@gmail.com' 
@@ -191,7 +197,7 @@ const RegistroUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
     )
 }
 
-const TablaUsuarios=({listaUsuarios, setConsulta})=>{ 
+const TablaUsuarios=({listaUsuarios, setConsulta, getToken})=>{ 
 
     const [buscar, setBuscar] = useState('');
     const [datoFiltrado, setDatoFiltrado] = useState(listaUsuarios)
@@ -228,7 +234,7 @@ const TablaUsuarios=({listaUsuarios, setConsulta})=>{
                     <tbody>
                         {datoFiltrado.map((usuarios) => {
                         return (
-                            <FilaUsuario key={nanoid()} usuarios={usuarios} setConsulta={setConsulta}/>
+                            <FilaUsuario key={nanoid()} usuarios={usuarios} setConsulta={setConsulta} getToken={getToken}/>
                         );
                     })}
                     </tbody>
@@ -237,13 +243,13 @@ const TablaUsuarios=({listaUsuarios, setConsulta})=>{
     )
 }
 
-const FilaUsuario = ({usuarios, setConsulta})=>{
+const FilaUsuario = ({usuarios, setConsulta, getToken})=>{
 
     const [editar, setEditar] = useState(false);
     const [infoEditarUsuario, setInfoEditarUsuario] = useState({
         documento:usuarios.documento,
-        nombre:usuarios.nombre,
-        correo:usuarios.correo,
+        name:usuarios.name,
+        email:usuarios.email,
         telefono:usuarios.telefono,
         estado:usuarios.estado,
         rol:usuarios.rol,
@@ -254,13 +260,14 @@ const FilaUsuario = ({usuarios, setConsulta})=>{
         const options = {
             method: 'PATCH',
             url: `http://localhost:5000/usuarios/${usuarios._id}`,
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: { ...infoEditarUsuario },
           };
           
           await axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario modificado con éxito');
+            setEditar(false);
             setConsulta(true);
           }).catch(function (error) {
             toast.error('Error modificando los datos del usuario');
@@ -270,6 +277,7 @@ const FilaUsuario = ({usuarios, setConsulta})=>{
     }
 
     return(
+
         <tr>
         {editar ? (
             <>
@@ -277,10 +285,10 @@ const FilaUsuario = ({usuarios, setConsulta})=>{
                 <input type='text' value={infoEditarUsuario.documento} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, documento:e.target.value})} />
             </td>
             <td>
-                <input type='text' value={infoEditarUsuario.nombre} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, nombre:e.target.value})}/>
+                <input type='text' value={infoEditarUsuario.name} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, name:e.target.value})}/>
             </td>
             <td>
-                <input type='text' value={infoEditarUsuario.correo} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, correo:e.target.value})}/>
+                <input type='text' value={infoEditarUsuario.email} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, email:e.target.value})}/>
             </td>
             <td>
                 <input type='text' value={infoEditarUsuario.telefono} onChange={(e)=>setInfoEditarUsuario({...infoEditarUsuario, telefono:e.target.value})}/>
@@ -304,8 +312,8 @@ const FilaUsuario = ({usuarios, setConsulta})=>{
         ):(
             <>
             <td>{usuarios.documento}</td>
-            <td>{usuarios.nombre}</td>
-            <td>{usuarios.correo}</td>
+            <td>{usuarios.name}</td>
+            <td>{usuarios.email}</td>
             <td>{usuarios.telefono}</td>
             <td>{usuarios.estado}</td>
             <td>{usuarios.rol}</td>
@@ -320,9 +328,10 @@ const FilaUsuario = ({usuarios, setConsulta})=>{
             )} 
             </div>
         </td>
-        </tr>       
+        </tr>    
+
+   
     )
 }
 
 export default Usuarios;
-
