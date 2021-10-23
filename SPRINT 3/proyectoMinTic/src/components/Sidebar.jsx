@@ -20,12 +20,12 @@ const Sidebar = () => {
         {/* </Link> */}
 
         <div>
-          <Ruta  ruta='/InterfazUsuarios' nombre='Perfil' usuario={user} />
+          <Ruta  ruta='/GestionUsuarios' nombre='Perfil' usuario={user} />
         </div>
 
         <div className='my-4'>
           
-          <Ruta icono='' ruta='/InterfazUsuarios' nombre='Usuarios' />
+          <Ruta icono='' ruta='/GestionUsuarios' nombre='Usuarios' />
           <Ruta icono='' ruta='/GestionVentas' nombre='Ventas' />
           <Ruta icono='' ruta='/GestionProductos' nombre='Productos' />
           {/* <Ruta icono='' ruta='/Login' nombre='Login' /> */}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const PrivateRoute = ({children}) => {
 
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { isAuthenticated, isLoading } = useAuth0();
         
         if (isLoading) return <div>Loading...</div>;
 

@@ -3,12 +3,11 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import AuthLayout from 'layouts/AuthLayout';
 import PrivateLayout from 'layouts/PrivateLayout';
 import GestionVentas from 'pages/GestionVentas';
-import Usuarios from 'pages/InterfazUsuarios';
+import Usuarios from 'pages/GestionUsuarios';
 import Login from 'pages/Login';
 import GestionProductos from 'pages/GestionProductos';
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import Navbar from 'components/Navbar';
 
 
 
@@ -18,13 +17,13 @@ function App() {
     <Auth0Provider
       domain="coffeecoders-mintic.us.auth0.com"
       clientId="edxTN4GxPbyqKvscYNUQgWamqbtkHUaa"
-      redirectUri="http://localhost:3000/InterfazUsuarios"
+      redirectUri="http://localhost:3000/GestionUsuarios"
     >
       <Router>
          <Switch>
-           <Route path={['/InterfazUsuarios', '/GestionProductos', '/GestionVentas']}>
+           <Route path={['/GestionUsuarios', '/GestionProductos', '/GestionVentas']}>
               <PrivateLayout>
-                <Route path='/InterfazUsuarios'>
+                <Route path='/GestionUsuarios'>
                   <Usuarios/>
                 </Route>
                 <Route path='/Gestionproductos'>
