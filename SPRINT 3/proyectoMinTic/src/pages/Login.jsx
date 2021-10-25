@@ -13,25 +13,25 @@ const Login = () => {
         </h2>
         <form className='mt-8 max-w-md'>
           <div>
-            <input
+            {/* <input
               className='appearance-none rounded-none relative block w-full px-3 py-2 my-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 hover:border-gray-500 sm:text-sm'
               type='email'
               placeholder='correo@c.com'
               required
-            />
-            <input
+            /> */}
+            {/* <input
               className='appearance-none rounded-none relative block w-full px-3 py-2 my-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 hover:border-gray-500 sm:text-sm'
               type='password'
               placeholder='Contraseña'
               required
-            />
+            /> */}
           </div>
           <div className='flex justify-between'>
             <div>
-              <label htmlFor='recuerdame'>
+              {/* <label htmlFor='recuerdame'>
                 <input type='checkbox' name='recuerdame'className='' />
                   Recuérdame
-              </label>
+              </label> */}
             </div>
             <div>
               <span>¿Olvidaste tu contraseña?</span>
