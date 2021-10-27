@@ -1,156 +1,136 @@
-import React, { useEffect, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css'; 
+import React, { useEffect, useState, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCheck, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
-
-const productosBackend = [
-    {
-        id: '001',
-        nombre: 'Deluxe',
-        linea: 'Premium',
-        variante: 'Castilla',
-        origen: 'Putumayo',
-        precio: 27000,
-    },
-    {   
-        id: '002',
-        nombre: 'Primavera',
-        linea: 'Hogar',
-        variante: 'Castilla',
-        origen: 'Putumayo',
-        precio: 15000,
-    },
-    {
-        id: '003',
-        nombre: 'Doña Luisa',
-        linea: "Sensacion",
-        variante: 'Castilla',
-        origen: 'Putumayo',
-        precio: 19000,
-    },
-];
-
+import axios from 'axios';
+import { nanoid } from 'nanoid';
 
 const GestionProductos = () => {
 
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [productos, setProductos]  = useState([]);
     const [textoBoton, setTextoBoton] = useState('Registra un producto');
-    const [colorBoton, setColorBoton] = useState('green-200');
+    const [consulta, setConsulta] = useState(true);
+
+    const getToken =()=>{
+        return `Bearer ${localStorage.getItem('token')}`;
+    }
 
     useEffect(() => {
-        //obtener lista de vehiculos desde el backend
-        setProductos(productosBackend);
-    }, []);
+        const obtenerProductos = async ()=>{
+            const options = {
+                method: 'GET',
+                url: 'https://git.heroku.com/still-shelf-57648.git/productos/',
+                headers: {'Content-Type': 'application/json', Authorization: getToken()}
+            };
+
+            await axios.request(options)
+                .then(function (response) {
+                setProductos(response.data);
+                })
+                .catch(function (error) {
+                console.error(error);
+            });
+        };
+
+        if (consulta){
+            obtenerProductos();
+            setConsulta(false);
+        }
+    }, [consulta]);
+
+
+    useEffect(()=>{
+        if (mostrarTabla){
+            setConsulta(true);
+        }
+    },[mostrarTabla]);
 
     useEffect(() => {
         if (mostrarTabla) {
-            setTextoBoton('Registra un producto');
-            setColorBoton('green');
+          setTextoBoton('Registra un producto');
         } else {
-            setTextoBoton('Ver el inventario');
-            setColorBoton('green');
+          setTextoBoton('Ver inventario');
         }
     }, [mostrarTabla]);
+
     return (
-        <body className='bg-gray-100'>
-            <div className='w-screen h-screen justify-center items-center flex flex-col'>
-                <h1 className='text-4xl text-center text-gray-800 my-2 font-bold font-sans w-full' >Registro de productos</h1>
-                <div>
-                    <button 
-                        onClick={()=>{setMostrarTabla(!mostrarTabla);
-                        }}
-                        className={`bg-${colorBoton}-500 p-1 rounded-full font-sans text-white `}
-                    >
-                        {textoBoton}
-                    </button>
-                    {mostrarTabla ? (
-                        <TablaProductos listaProductos={productos} />
-                    ) : (
-                        <FormularioRegistroProductos 
-                            fMostrarTabla={setMostrarTabla}
-                            listaProductos={productos}
-                            fAgregarProducto={setProductos} />
-                    )}
-                    <ToastContainer position="bottom-center" autoClose={5000} />
-                </div>
-            </div>    
+        <body>
+            <h1 className='font-bold text-4x1 text-center text-gray-800 my-2'>Administración de Productos</h1>
+            <div align='right'>
+                <button 
+                    onClick={()=>{setMostrarTabla(!mostrarTabla);
+                    }}
+                    className={'text-white font-bold bg-green-500 p-5 rounded-full m-6 w-28 self-end'}
+                >
+                    {textoBoton}
+                </button>
+            </div>
+
+            {mostrarTabla ? (
+            <TablaProductos listaProductos={productos} setConsulta={setConsulta} getToken={getToken} />
+        ) : (
+            <FormularioRegistroProductos 
+            setMostrarTabla={setMostrarTabla}
+            listaProductos={productos}
+            setProductos={setProductos}
+            getToken={getToken}
+            />
+        )}
+        <ToastContainer position="bottom-center" autoClose={5000} />   
         </body>
     );
 };
 
+const FormularioRegistroProductos = ({setMostrarTabla, listaProductos, setProductos, getToken}) => {
 
-const TablaProductos = ({listaProductos}) => {
-    return (
-        <div className='flex flex-col items-center font-sans justify-center'>
-            <table className='p-2 m-2 items-center'>
-                <thead className='bg-green-500 text-white'>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre del producto</th>
-                        <th>Linea</th>
-                        <th>Variante</th>
-                        <th>Orígen</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listaProductos.map((producto) => {
-                        return (
-                            <tr>
-                                <td>{producto.id}</td>
-                                <td>{producto.nombre}</td>
-                                <td>{producto.linea}</td>
-                                <td>{producto.variante}</td>
-                                <td>{producto.origen}</td>
-                                <td>{producto.precio}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
-    );
-};
+    const form = useRef(null);
 
-const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarProducto,}) => {
-    const [id, setId] = useState("")
-    const [nombre, setNombre] = useState("")
-    const [linea, setLinea] = useState("")
-    const [variante, setVariante] = useState("")
-    const [origen, setOrigen] = useState("")
-    const [precio, setPrecio] = useState("")
+    const submitForm = async (e) => {
+        e.preventDefault();
+        const registroDeProductos = new FormData(form.current);
 
-    const enviarAlBackend = () => {
-        console.log('Id', id, 'Nombre', nombre, 'Linea', linea, 'Variante', variante, 'Origen', origen, 'Precio', precio);
-        if(id === "" || nombre === "" || linea === "" || variante === "" || origen === "" || precio === "" ) {
-            toast.error('Diligencie el formulario completo');
-        } else {
-            toast.success('¡Su producto ha sido registrado exitosamente!');
-            fMostrarTabla(true);
-            fAgregarProducto([
-                ...listaProductos, 
-                {id:id, nombre:nombre, linea:linea, variante:variante, origen:origen, precio:precio },
-           ]);
-        } 
-    };   
+        const nuevoProducto = {};
+            registroDeProductos.forEach((value, key) => {
+            nuevoProducto[key] = value;
+            });
+
+        const options = {
+            method: 'POST',
+            url: 'https://git.heroku.com/still-shelf-57648.git/productos/',
+            headers: { 'Content-Type': 'application/json', Authorization: getToken() },
+            data: { id: nuevoProducto.id, nombre: nuevoProducto.nombre, linea: nuevoProducto.linea, variante: nuevoProducto.variante, origen: nuevoProducto.origen, precio: nuevoProducto.precio},
+            };
+              
+        await axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+                toast.success('Producto agregado con éxito');
+            })
+            .catch(function (error) {
+                console.error(error);
+                toast.error('Error registrando el producto');
+            });
+
+        setMostrarTabla(true)
+        setProductos([...listaProductos, nuevoProducto]);
+    }
+
 
     return (
         <div className='flex flex-col items-center justify-center'>
-            <h2 className='text-2x1 font-bold text-gray-800 font-sans items-center justify-center'>Ingresa un nuevo producto</h2>
-            <form className='grid grid-cols-2 font-sans'>
-                <label className='flex flex-col' htmlFor='id'>
-                    ID
+            <form ref={form} onSubmit={submitForm} className='flex flex-col'>
+                <h1 className='font-bold text-2x1 text-blue-500 my-5 text-center'>Registro de productos</h1>
+                <div className='flex flex-row'>
+                <label className='flex flex-col m-5' htmlFor='id'>
+                    ID del producto
                     <input 
-                    name='id'
-                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2 font-sans' 
+                        name='id'
+                        className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50' 
                         type='number' 
-                        placeholder='08937'
-                        value={id} 
-                        onChange={(e) => {
-                        setId(e.target.value);
-                        }}
+                        placeholder='009'
                         required
                     />
                 </label>
@@ -158,27 +138,23 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Nombre
                     <input 
                         name='nombre'
-                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                        className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='text' 
                         placeholder='Juan Valtez'
-                        value={nombre} 
-                        onChange={(e) => {
-                            setNombre(e.target.value);
-                        }}
                         required
                     />
                 </label>
-                <label className='flex flex-col' htmlFor='linea'>
-                    Linea
+                </div>
+                <div className='flex flex-row'>
+                <label className='flex flex-col m-5' htmlFor='linea'>
+                    Línea
                     <select
                         name='linea'
-                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
-                        value={linea} 
-                        onChange={(e) => {
-                            setLinea(e.target.value);
-                        }}  
+                        className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
+                        required
+                        defaultValue={0}
                     >
-                        <option disable>Seleccione una linea</option>
+                        <option disabled value={0}>Seleccione una línea</option>
                         <option>Premium</option>
                         <option>Hogar</option>
                         <option>Sensacion</option>
@@ -188,29 +164,25 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Variante
                     <select           
                         name='variante' 
-                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
-                        value={variante} 
-                        onChange={(e) => {
-                            setVariante(e.target.value);
-                        }}  
+                        className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
+                        required
+                        defaultValue={0}
                     >
-                        <option disable>Seleccione una variante</option>
+                        <option disabled value={0}>Seleccione una variante</option>
                         <option>Arabica</option>
                         <option>Robusta</option>
                         <option>Liberica</option>
                     </select>
-                </label>    
+                </label>
+                </div>
+                <div className='flex flex-row'>  
                 <label className='flex flex-col' htmlFor='origen'>
                     Origen
                     <input 
                         name='origen'
-                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                        className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='text' 
                         placeholder='Putumayo'
-                        value={origen} 
-                        onChange={(e) => {
-                            setOrigen(e.target.value);
-                        }}
                         required  
                     />
                 </label>       
@@ -218,27 +190,163 @@ const FormularioRegistroProductos = ({fMostrarTabla, listaProductos, fAgregarPro
                     Precio
                     <input 
                         name='precio'
-                        className='text-xs bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                        className='bg-gray-50 border border-blue-600 p-2 rounded-lg my-2 w-50'
                         type='number' 
                         placeholder='30000'
-                        value={precio} 
-                        onChange={(e) => {
-                            setPrecio(e.target.value);
-                        }}
                         required
                     />
-                </label>  
+                </label>
+                </div>
+
+            <div className='my-4' align='center'>
                 <button 
                     type='submit' 
-                    className='col-span-2 bg-green-400 p-1 rounded-full shadow-md hover:bg-green-500 text-white'
-                    onClick={()=>{enviarAlBackend();
-                    }}
+                    className='bg-blue-400 text-white font-bold rounded-full p-2'
                 >
-                    Guardar producto
+                    Registrar producto
                 </button>
+            </div>
             </form>
         </div>
     );
 };
+
+
+const TablaProductos = ({listaProductos, setConsulta, getToken}) => {
+
+    const [buscar, setBuscar] = useState('');
+    const [datoFiltrado, setDatoFiltrado] = useState(listaProductos)
+
+    useEffect(() => {
+        setDatoFiltrado(
+            listaProductos.filter((elemento)=>{
+                return JSON.stringify(elemento).toLowerCase().includes(buscar.toLowerCase());
+            })
+        )
+    },[buscar, listaProductos]);
+
+    return (
+        <div className='flex flex-col items-center justify-center w-full'>
+            <h2 className='font-bold text-4xl text-blue-500 my-5 text-center'> Inventario de productos</h2>
+            <input placeholder='Buscar'
+                value={buscar}
+                onChange={(e)=>setBuscar(e.target.value)}
+                className='border-2 border-gray-700 px-3 py-1 rounded-md focus:outline-none focus:border-blue-500'
+            />
+            <table className='border border-green-500 table-auto'>
+                <thead>
+                    <tr>
+                        <th className='border border-blue-600'>ID</th>
+                        <th className='border border-blue-600'>Nombre del producto</th>
+                        <th className='border border-blue-600'>Línea</th>
+                        <th className='border border-blue-600'>Variante</th>
+                        <th className='border border-blue-600'> Orígen </th>
+                        <th className='border border-blue-600'>Precio</th>
+                        <th className='border border-blue-600'>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {datoFiltrado.map((productos) => {
+                        return (
+                            <FilaProducto key={nanoid()} productos={productos} setConsulta={setConsulta} getToken={getToken} />
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+const FilaProducto = ({productos, setConsulta, getToken}) => {
+
+    const [editar, setEditar] = useState(false);
+    const [infoEditarProducto, setInfoEditarProducto] = useState({
+        id:productos.id,
+        nombre:productos.nombre,
+        linea:productos.linea,
+        variante:productos.variante,
+        origen:productos.origen,
+        precio:productos.precio,
+    })
+
+    const actualizarProducto = async ()=>{
+        const options = {
+            method: 'PATCH',
+            url: `https://git.heroku.com/still-shelf-57648.git/usuarios/${productos._id}`,
+            headers: {'Content-Type': 'application/json', Authorization: getToken()},
+            data: { ...infoEditarProducto },
+        };
+          
+        await axios
+            .request(options)
+            .then(function (response) {
+            console.log(response.data);
+            toast.success('Producto actualizado con éxito');
+            setEditar(false);
+            setConsulta(true);
+            })
+            .catch(function (error) {
+            toast.error('Error actualizando producto');
+            console.error(error);
+        });
+
+    }
+
+    return(
+
+        <tr>
+        {editar ? (
+            <>
+            <td>
+                <input type='number' value={infoEditarProducto.id} onChange={(e)=>setInfoEditarProducto({...infoEditarProducto, id:e.target.value})} />
+            </td>
+            <td>
+                <input type='text' value={infoEditarProducto.nombre} onChange={(e)=>setInfoEditarProducto({...infoEditarProducto, nombre:e.target.value})}/>
+            </td>
+            <td>
+            <select value={infoEditarProducto.linea} onChange={(e)=>setInfoEditarProducto({...infoEditarProducto, linea:e.target.value})} >
+                <option disabled value={0}>Seleccione una línea</option>
+                <option>Premium</option>
+                <option>Hogar</option>
+                <option>Sensación</option>
+            </select>
+            </td>
+            <td>
+            <select value={infoEditarProducto.variante} onChange={(e)=>setInfoEditarProducto({...infoEditarProducto, variante:e.target.value})} >
+                <option disabled value={0}>Seleccione una variante</option>
+                <option>Arabica</option>
+                <option>Robusta</option>
+                <option>Liberica</option>
+            </select>
+            </td>
+            <td>
+                <input type='text' value={infoEditarProducto.origen} onChange={(e)=>setInfoEditarProducto({...infoEditarProducto, origen:e.target.value})} />
+            </td>
+            <td>
+                <input type='number' value={infoEditarProducto.precio} onChange={(e)=>setInfoEditarProducto({...infoEditarProducto, precio:e.target.value})} />
+            </td>
+            </>
+        ):(
+            <>
+            <td>{productos.id}</td>
+            <td>{productos.nombre}</td>
+            <td>{productos.linea}</td>
+            <td>{productos.variante}</td>
+            <td>{productos.origen}</td>
+            <td>{productos.precio}</td>
+            </>
+        )}
+        <td>
+            <div className='flex items-center justify-center'>
+            {editar ? (
+                <FontAwesomeIcon onClick={()=>actualizarProducto() } icon={faUserCheck} className='text-blue-400 hover:text-blue-900' />
+            ):(
+                <FontAwesomeIcon onClick={()=>setEditar(!editar)} icon={faUserEdit} className='text-blue-400 hover:text-blue-900' />
+            )} 
+            </div>
+        </td>
+        </tr>    
+    )
+}
 
 export default GestionProductos;
