@@ -54,7 +54,7 @@ const GestionVentas=()=>{
 
     return(
         <div>
-            <h2 className='font-bold text-4xl text-center text-violet-800 my-2'>Administración de Ventas</h2>
+            <h2 className='font-bold text-4xl text-center text-yellow-400 my-2'>Administración de Ventas</h2>
             <div align='right'>
                 <button onClick={() => {setMostrarTabla(!mostrarTabla);}}
                         className={`text-white font-bold bg-green-500 p-5 rounded-full m-6 w-28 self-end`}>
@@ -121,57 +121,86 @@ const RegistroVentas=({setMostrarTabla, listaVentas, setVentas, getToken})=>{
                 <h1 className='font-bold text-2xl text-green-500 my-5 text-center'> Registro de Ventas</h1>
                 <div className='flex flex-row'>
                 <label className='flex flex-col mx-5' htmlFor='iD'> 
-                    Ingrese su ID único de venta
+                    ID único de venta
                     <input 
                         name='iD' 
-                        className='bg-violet-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
                         type='number' 
                         placeholder='1120' 
                         required/>
                 </label>
                 <label className='flex flex-col' htmlFor='total'> 
-                Escriba el total de la venta
+                Total de la venta
                     <input 
                         name='total' 
-                        className='bg-violet-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
                         type='number' 
                         placeholder='5000' 
                         required/>
                 </label>
                 </div>
                 <div className='flex flex-row'>
-                <label className='flex flex-col mx-5' htmlFor='descripcion'> 
-                Descripción de la venta
+                <label className='flex flex-col mx-5' htmlFor='cantidad'> 
+                Cantidad de unidades
                     <input 
-                        name='descripcion' 
-                        className='bg-violet-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        name='cantidad' 
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
                         type='text' 
                         placeholder='Garantía, etc.' 
                         required/>
                 </label>
-                <label className='flex flex-col' htmlFor='fechaPago'> 
-                    Fecha inicial de pago 
+                <label className='flex flex-col' htmlFor='preciounitario'> 
+                    Precio unitario 
                     <input 
-                        name='fechaPago' 
-                        className='bg-violet-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        name='preciounitario' 
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
                         type='text' 
-                        placeholder='20-01-2022' />
+                        placeholder='1000' />
                 </label>
-                <label className='flex flex-col' htmlFor='fechaFutura'> 
-                    Fecha futura de pago 
+                <label className='flex flex-col' htmlFor='fechaventa'> 
+                    Fecha de venta 
                     <input 
-                        name='fechaFutura' 
-                        className='bg-violet-50 border border-green-600 p-2 rounded-lg my-2 w-50'
-                        type='text' 
+                        name='fechaventa' 
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        type='date' 
                         placeholder='20-02-2022' />
                 </label>
+                <label className='flex flex-col' htmlFor='identificacioncliente'> 
+                    Identificación cliente 
+                    <input 
+                        name='identificacioncliente' 
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        type='number' 
+                        placeholder='1125635987' />
+                </label>
+                <label className='flex flex-col' htmlFor='nombrecliente'> 
+                    Nombre del cliente
+                    <input 
+                        name='nombrecliente' 
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        type='text' 
+                        placeholder='Mario H' />
+                </label>
                 <label className='flex flex-col' htmlFor='vendedor'> 
-                    Escriba nombre del vendedor 
+                    Nombre del vendedor 
                     <input 
                         name='vendedor' 
-                        className='bg-violet-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        className='bg-yellow-50 border border-green-600 p-2 rounded-lg my-2 w-50'
                         type='text' 
                         placeholder='Maria C' />
+                </label>
+                <label className='flex flex-col' htmlFor='estadoventa'>
+                   Estado venta
+                    <select
+                        className='bg-gray-50 border border-green-600 p-2 rounded-lg my-2 w-50'
+                        name='estadoventa'
+                        defaultValue={0}>
+
+                        <option disabled value={0}>Elija una opción</option>
+                        <option>En proceso</option>
+                        <option>Entregada</option>
+                        <option>Cancelada</option>
+                    </select>
                 </label>
                 </div>
                                 
@@ -209,11 +238,15 @@ const TablaVentas=({listaVentas, setConsulta, getToken})=>{
                     <thead>
                     <tr>
                         <th className='border border-green-600'>ID</th>
-                        <th className='border border-green-600'>Total</th>
-                        <th className='border border-green-600'>Descripcion de la venta</th>
-                        <th className='border border-green-600'>Fecha de Pago</th>
-                        <th className='border border-green-600'>Fecha Futura de Pago</th>
+                        <th className='border border-green-600'>Total venta</th>
+                        <th className='border border-green-600'>Cantidad unidades producto</th>
+                        <th className='border border-green-600'>Precio producto</th>
+                        <th className='border border-green-600'>Fecha de Venta</th>
+                        <th className='border border-green-600'>ID cliente</th>
+                        <th className='border border-green-600'>Nombre cliente</th>
                         <th className='border border-green-600'>Vendedor</th>
+                        <th className='border border-green-600'>Estado venta</th>
+                        <th className='border border-green-600'>Editar datos</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -235,11 +268,14 @@ const FilaVentas = ({ventas, setConsulta, getToken})=>{
 
         iD:ventas.iD, 
         total:ventas.total,
-        descripcion:ventas.descripcion, 
-        fechaPago:ventas.fechaPago, 
-        fechaFutura:ventas.fechaFutura, 
-        vendedor:ventas.vendedor
-
+        cantidad:ventas.cantidad,
+        preciounitario:ventas.preciounitario, 
+        fechaventa:ventas.fechaventa, 
+        identificacioncliente:ventas.identificacioncliente,
+        nombrecliente:ventas.nombrecliente, 
+        vendedor:ventas.vendedor,
+        estadoventa:ventas.estadoventa, 
+        
     })
 
     const actualizarVentas = async ()=>{
@@ -272,34 +308,51 @@ const FilaVentas = ({ventas, setConsulta, getToken})=>{
                 <input type='text' value={infoEditarVentas.total} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, total:e.target.value})}/>
             </td>
             <td>
-                <input type='text' value={infoEditarVentas.descripcion} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, descripcion:e.target.value})}/>
+                <input type='text' value={infoEditarVentas.cantidad} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, cantidad:e.target.value})}/>
             </td>
             <td>
-                <input type='text' value={infoEditarVentas.fechaPago} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, fechaPago:e.target.value})}/>
+                <input type='text' value={infoEditarVentas.preciounitario} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, preciounitario:e.target.value})}/>
             </td>
             <td>
-                <input type='text' value={infoEditarVentas.fechaFutura} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, fechaFutura:e.target.value})}/>
+                <input type='text' value={infoEditarVentas.fechaventa} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, fechaventa:e.target.value})}/>
             </td>
+            <td>
+                <input type='text' value={infoEditarVentas.identificacioncliente} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, identificacioncliente:e.target.value})}/>
+            </td>
+            <td>
+                <input type='text' value={infoEditarVentas.nombrecliente} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, nombrecliente:e.target.value})}/>
+            </td>           
             <td>
                 <input type='text' value={infoEditarVentas.vendedor} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, vendedor:e.target.value})}/>
+            </td>
+            <td>
+            <select value={infoEditarVentas.estadoventa} onChange={(e)=>setInfoEditarVentas({...infoEditarVentas, estadoventa:e.target.value})} >
+                <option disabled value={0}>Elija una opción</option>
+                <option>En proceso</option>
+                <option>Entregada</option>
+                <option>Cancelada</option>
+            </select>
             </td>
             </>
         ):(
             <>
             <td>{ventas.iD}</td>
             <td>{ventas.total}</td>
-            <td>{ventas.descripcion}</td>
-            <td>{ventas.fechaPago}</td>
-            <td>{ventas.fechaFutura}</td>
+            <td>{ventas.cantidad}</td>
+            <td>{ventas.preciounitario}</td>
+            <td>{ventas.fechaventa}</td>
+            <td>{ventas.identificacioncliente}</td>
+            <td>{ventas.nombrecliente}</td>
             <td>{ventas.vendedor}</td>
+            <td>{ventas.estadoventa}</td>             
             </>
         )}
         <td>
             <div className='flex items-center justify-center'>
             {editar ? (
-                <FontAwesomeIcon onClick={()=>actualizarVentas() } icon={faUserCheck} className='text-green-400 hover:text-violet-900' />
+                <FontAwesomeIcon onClick={()=>actualizarVentas() } icon={faUserCheck} className='text-green-400 hover:text-yellow-900' />
             ):(
-                <FontAwesomeIcon onClick={()=>setEditar(!editar)} icon={faUserEdit} className='text-green-400 hover:text-violet-900' />
+                <FontAwesomeIcon onClick={()=>setEditar(!editar)} icon={faUserEdit} className='text-green-400 hover:text-yellow-900' />
             )} 
             </div>
         </td>

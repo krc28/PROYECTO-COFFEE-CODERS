@@ -1,11 +1,11 @@
 .tabla {
-    margin: 15px;
+    margin: 10px;
 }
 
 .tabla td,
 .tabla th {
-  padding: 6px;
-  border: 3px;
+  padding: 4px;
+  border: 2px;
   border-style: double;
   border-color:rgb(104, 238, 27);
 }
@@ -14,16 +14,16 @@
     background-color: #05a844;
     color: rgb(231, 240, 110);
     font-weight: bold;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 12px;
+    padding-bottom: 13px;
     text-align: center;
 }
 
 .tabla tr:nth-child(even) {
-    background-color:rgb(65, 230, 153);
+    background-color:rgb(0, 255, 136);
 }
 
 .tabla tr:hover {
-    background-color: rgb(231, 235, 181);
+    background-color: rgb(234, 241, 123);
     cursor: pointer;
 }
